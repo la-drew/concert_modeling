@@ -54,15 +54,15 @@ export TICKETMASTER_API_KEY=your_key_here   # optional
 ## Usage
 
 ```bash
-python ticket_collector.py                  # take a snapshot
-python ticket_collector.py --force          # record every SeatGeek event now, ignoring the cadence rules
-python ticket_collector.py --export out.csv # write the joined panel to CSV
+python concert_modeling.py                  # take a snapshot
+python concert_modeling.py --force          # record every SeatGeek event now, ignoring the cadence rules
+python concert_modeling.py --export out.csv # write the joined panel to CSV
 ```
 
 To track a different artist:
 
 ```bash
-python ticket_collector.py --slug some-artist --tm-keyword "Some Artist"
+python concert_modeling.py --slug some-artist --tm-keyword "Some Artist"
 ```
 
 `--slug` is the SeatGeek performer slug. If it finds nothing, look it up at
@@ -75,10 +75,8 @@ The database path defaults to `tickets.db` and can be changed with the `TICKETS_
 Run it hourly with cron:
 
 ```
-0 * * * * cd /path/to/repo && /usr/bin/python3 ticket_collector.py >> collector.log 2>&1
+0 * * * * cd /path/to/repo && /usr/bin/python3 concert_modeling.py >> collector.log 2>&1
 ```
-
-A laptop that sleeps will miss snapshots, and the final-week hourly data matters most. An always-on machine such as a cheap VPS, a Raspberry Pi, or a scheduled GitHub Actions workflow is safer.
 
 ## Data
 
@@ -127,11 +125,3 @@ Use a spline or bins for `days_out`, since the curve is nonlinear and steepest a
 - **No sold-out flag.** Ticketmaster's status codes (onsale, offsale, cancelled, postponed, rescheduled) do not say when primary inventory sells out. A sold-out show can still read "onsale."
 - **Fees vary by platform.** Compare prices within one source rather than across sources.
 - **Ticketmaster price ranges** change rarely and are sometimes missing.
-
-## Terms of service
-
-This script only uses the official public APIs of SeatGeek and Ticketmaster. Check each provider's API terms for rate limits and permitted use before running it at scale or redistributing data.
-
-## License
-
-Add a license of your choice (MIT is a common default).
