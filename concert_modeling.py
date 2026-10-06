@@ -22,7 +22,7 @@ Setup
 Cadence
   Schedule it HOURLY. SeatGeek: each event every 6h, hourly in its final week.
   Ticketmaster: every run (cheap, and you want to catch status flips quickly).
-  Crontab:  0 * * * * cd /path/to/dir && /usr/bin/python3 ticket_collector.py >> collector.log 2>&1
+  Crontab:  0 * * * * cd /path/to/dir && /usr/bin/python3 concert_modeling.py >> collector.log 2>&1
 """
 import argparse
 import csv
